@@ -1,6 +1,6 @@
 <?php 
 
-const Base_url = "http://localhost/CIC/REST";
+const Base_url = "http://localhost/CIC/server";
 
 //Datos de conexión a base de datos
 const DB_HOST = "localhost"; //servidor de la DB
