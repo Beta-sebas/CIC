@@ -44,5 +44,9 @@ export class CursosService {
     return this.http.get( `${this.REST_URI}/usuarios`)
   }
 
+  insertTema( tema:any){
+    return this.http.post( `${this.REST_URI}/temas`,tema);
+  }
+
   
 }

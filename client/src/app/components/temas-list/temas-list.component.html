@@ -1,0 +1,29 @@
+<div class="row" *ngIf="temas.status == true">
+    <div class="col-md-6" *ngFor="let tema of temas.data;">
+        <div class="card text-center" style="height: auto;">
+            
+            <img [src]="'https://picsum.photos/500/200?image=' + tema.idtema+4" class="card-img-top"
+                alt="imagen del curso" />
+           
+            <div class="card-body">
+                <h5 class="card-title">{{ tema.nombre}} </h5>
+                <p class="card-text">{{ tema.descripcion }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+            
+                <li class="list-group-item">
+                  Fecha de creación del Tema : {{ tema.fechaRegistro }}
+                </li>
+                <li class="list-group-item" *ngIf="tema.status == 1">
+                  Estado del Tema
+                  <span class="badge rounded-pill bg-success"> Activo </span>
+                </li>
+                <li class="list-group-item" *ngIf="tema.status == 0">
+                  Estado del Tema
+                  <span class="badge rounded-pill bg-danger"> Inactivo </span>
+                </li>
+              </ul>
+        </div>
+    </div>
+</div>
+

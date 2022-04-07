@@ -11,9 +11,7 @@ import { Curso } from '../../models/cursos';
 export class CursosListComponent implements OnInit {
 
     cursos: any = [];
-    //min:number = 1;
-    //max:number = 1000;
-    //numero:number =  Math.random() * (1000 - 1) + 1;
+    
 
     constructor(private cursosService: CursosService) { }
 

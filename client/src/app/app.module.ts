@@ -10,6 +10,8 @@ import { CursosListComponent } from './components/cursos-list/cursos-list.compon
 import { CursosService } from './services/cursos.service';
 import { FormsModule } from "@angular/forms";
 import { CursosDetailComponent } from './components/cursos-detail/cursos-detail.component';
+import { TemasListComponent } from './components/temas-list/temas-list.component';
+import { TemasFormComponent } from './components/temas-form/temas-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CursosDetailComponent } from './components/cursos-detail/cursos-detail.
     NavigationComponent,
     CursosFormComponent,
     CursosListComponent,
-    CursosDetailComponent
+    CursosDetailComponent,
+    TemasListComponent,
+    TemasFormComponent
   ],
   imports: [
     BrowserModule,

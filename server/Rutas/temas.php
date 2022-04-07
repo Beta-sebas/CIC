@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
     else {
 
-        $sql = "SELECT * FROM temas ";
+        $sql = "SELECT idtema, nombre, descripcion, DATE_FORMAT(datecreated, '%d-%m-%Y') as fechaRegistro, status FROM temas ";
         $request = $rest->select_all($sql);
         if(empty($request))
         {

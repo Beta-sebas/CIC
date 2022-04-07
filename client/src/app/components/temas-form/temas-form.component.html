@@ -1,0 +1,47 @@
+<div class="col-md-8 offset-md-2">
+    <div class="card">
+        <div class="card-body">
+            <form ngNativeValidate (submit)="saveNewTema()">
+                
+                <p class="text-primary"> Todos los campos con( <span class="required">*</span> )son obligatorios </p>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="txtNombre" class="control-label">Nombre del tema <span class="required">*</span> </label>
+                            <input class="form-control" [(ngModel)]="temas.nombre" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del Tema" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Descripción del tema <span class="required">*</span> </label>
+                            <textarea class="form-control" id="txtDescripcion" [(ngModel)]="temas.descripcion" name="txtDescripcion" rows="2" placeholder="Descripción del tema" required=""></textarea>
+                        </div>
+
+                        <div class="row">
+
+                        <div class="form-group col-md-auto ">
+                            <label for="listStatus">Estado <span class="required">*</span> </label>
+                            <select class="form-select selectpicker" [(ngModel)]="temas.status" id="listStatus" name="listStatus" required="">
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tile-footer mt-3 d-flex justify-content-start align-items-center">
+
+                    <div><a routerLink="/temas" class="btn btn-secondary btn-block"> <i class="fa fa-fw fa-lg fa-times-circle"></i> Cancelar</a></div>&nbsp;&nbsp;&nbsp;
+                    <button id="btnActionForm" class="btn btn-info" type="submit" ><i class="fa fa-fw fa-lg fa-check-circle"></i><span>Guardar</span></button>
+                    
+                </div>
+                    
+                
+            </form>
+        </div>
+    </div>
+
+</div>
