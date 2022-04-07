@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $intTemaId = intval($data['temaid']);
         $intPersonaId = intval($data['personaid']);
         $strCodigo = strClean($data['codigo']);
-        $strNombre =  strClean($data['nombre']);
-        $strDescripcion = strClean($data['descripcion']);
+        $strNombre =  ucwords(strClean($data['nombre']));
+        $strDescripcion = ucfirst(strClean($data['descripcion']));
         $intStatus = intval($data['status']);
             
         $query_insert  = "INSERT INTO cursos(
@@ -106,8 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             $intTemaId = intval($data['temaid']);
             $intPersonaId = intval($data['personaid']);
             $strCodigo = strClean($data['codigo']);
-            $strNombre =  strClean($data['nombre']);
-            $strDescripcion = strClean($data['descripcion']);
+            $strNombre =  ucwords(strClean($data['nombre']));
+            $strDescripcion = ucfirst(strClean($data['descripcion']));
             $intStatus = intval($data['status']);
 
             $query_update  = "UPDATE cursos SET

@@ -9,13 +9,15 @@ import { CursosFormComponent } from './components/cursos-form/cursos-form.compon
 import { CursosListComponent } from './components/cursos-list/cursos-list.component';
 import { CursosService } from './services/cursos.service';
 import { FormsModule } from "@angular/forms";
+import { CursosDetailComponent } from './components/cursos-detail/cursos-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     CursosFormComponent,
-    CursosListComponent
+    CursosListComponent,
+    CursosDetailComponent
   ],
   imports: [
     BrowserModule,

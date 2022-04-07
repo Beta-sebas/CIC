@@ -4,8 +4,9 @@
       <div
         class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
       >
-        {{ curso.nombre }}
+        <a title="Ver Detalles" class="enlace text-decoration-none text-white" routerLink="/cursos/view/{{curso.idcurso}}">{{ curso.nombre }}</a>
 
+        
         <button
           type="button"
           class="btn dropdown-toggle flecha"
@@ -30,4 +31,4 @@
   </div>
 </div>
 
-<div><a routerLink="/cursos/add" class="btn btn-info btn-block">Agregar Cursos</a></div>
+<div class="row-2 d-flex justify-content-center mt-3"><a routerLink="/cursos/add" class="btn btn-info btn-block">Agregar Cursos</a></div>

@@ -6,5 +6,8 @@ export interface Curso{
     nombre?:string;
     descripcion?:string;
     status?:number;
+    nombreTutor?:string;
+    apellidos?:string;
+    fechaRegistro?:string;
 
 }
