@@ -1,12 +1,9 @@
 <?php 
 
-require_once("Config/Config.php");
-require_once("Helpers/Helpers.php");
-require_once("Libraries/Core/Autoload.php");
+include "../Config/Config.php";
+require_once("../Helpers/Helpers.php");
+require_once("../Libraries/Core/Autoload.php");
 
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 $rest = new Mysql();
 
@@ -21,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sql = "SELECT c.idcurso,c.temaid,c.personaid,c.codigo,c.nombre,c.descripcion,p.nombre as nombretutor,p.apellidos,c.status, DATE_FORMAT(c.datecreated, '%d-%m-%Y') as fechaRegistro 
 					FROM cursos c
 					INNER JOIN personas p
-					ON c.personaid = p.rolid
+					ON c.personaid=p.id
 					WHERE c.idcurso = $intIdCurso";
 			$request = $rest->select($sql);
             if(empty($request))
@@ -41,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $sql = "SELECT c.idcurso,c.temaid,c.personaid,c.codigo,c.nombre,c.descripcion,p.nombre as nombretutor,p.apellidos,c.status, DATE_FORMAT(c.datecreated, '%d-%m-%Y') as fechaRegistro 
 					FROM cursos c
 					INNER JOIN personas p
-					ON c.personaid = p.rolid ";
+					ON c.personaid = p.id WHERE c.status = 1 ORDER BY c.idcurso";
         $request = $rest->select_all($sql);
         if(empty($request))
         {
@@ -57,18 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
     
-    if (empty($_POST['txtCodigo']) || empty($_POST['txtNombre'])) {
+    
+    if (empty($data['codigo']) || empty($data['nombre'])) {
                     
         $arrResponse = array('status' => false, 'msg' => 'Datos incorrectos.');
     }else{
         
-        $intTemaId = intval($_POST['listTema']);
-        $intPersonaId = intval($_POST['listTutor']);
-        $strCodigo = strClean($_POST['txtCodigo']);
-        $strNombre =  strClean($_POST['txtNombre']);
-        $strDescripcion = strClean($_POST['txtDescripcion']);
-        $intStatus = intval($_POST['listStatus']);
+        $intTemaId = intval($data['temaid']);
+        $intPersonaId = intval($data['personaid']);
+        $strCodigo = strClean($data['codigo']);
+        $strNombre =  strClean($data['nombre']);
+        $strDescripcion = strClean($data['descripcion']);
+        $intStatus = intval($data['status']);
             
         $query_insert  = "INSERT INTO cursos(
             temaid,personaid,codigo,nombre,descripcion,status) VALUES(?,?,?,?,?,?)";
@@ -82,7 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
         }
     }
-    header("HTTP/1.1 200 OK");
+    //header("HTTP/1.1 200 OK");
+    http_response_code(200);
     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
     exit();
 }
@@ -94,15 +97,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $intIdCurso = intval($_GET['id']);
 
         if ($intIdCurso > 0) {
-            
-            parse_str(file_get_contents("php://input"),$put_vars);
 
-            $intTemaId = intval($put_vars['listTema']);
-            $intPersonaId = intval($put_vars['listTutor']);
-            $strCodigo = strClean($put_vars['txtCodigo']);
-            $strNombre =  strClean($put_vars['txtNombre']);
-            $strDescripcion = strClean($put_vars['txtDescripcion']);
-            $intStatus = intval($put_vars['listStatus']);
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+            
+            //parse_str(file_get_contents("php://input"),$put_vars);
+
+            $intTemaId = intval($data['temaid']);
+            $intPersonaId = intval($data['personaid']);
+            $strCodigo = strClean($data['codigo']);
+            $strNombre =  strClean($data['nombre']);
+            $strDescripcion = strClean($data['descripcion']);
+            $intStatus = intval($data['status']);
 
             $query_update  = "UPDATE cursos SET
                 temaid=?,personaid=?,codigo=?,nombre=?,descripcion=?,status=? WHERE idcurso = $intIdCurso";
@@ -162,6 +168,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
     exit();
 
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // Indica los métodos permitidos.
+    header('Access-Control-Allow-Methods: GET, POST, DELETE');
+    // Indica los encabezados permitidos.
+    header('Access-Control-Allow-Headers: Authorization');
+    http_response_code(204);
 }
 
     //parse_str(file_get_contents("php://input"),$put_vars);
